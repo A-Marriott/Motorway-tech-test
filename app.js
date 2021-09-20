@@ -13,9 +13,7 @@ db
     console.error('Unable to connect to the database:', err);
   });
 
-app.get('/', (req, res) => {
-  res.json({test: 'hello'})
-});
+app.use('/api/vehicles', require('./routes/api/vehicles'));
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
