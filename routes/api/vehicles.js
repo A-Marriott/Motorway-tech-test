@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const Vehicle = require('../../models/vehicle');
+const getVehicle = require('../../controller/vehicles');
 
 router.get('/', (req, res) => {
-  Vehicle.findAll().then(vehicles => res.json(vehicles));
+  getVehicle().then((vehicles) => res.json(vehicles));
 });
 
 module.exports = router;
