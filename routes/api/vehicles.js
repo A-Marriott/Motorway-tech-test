@@ -2,24 +2,12 @@ const express = require('express');
 const router = express.Router();
 const db = require('../../config/database');
 const Vehicle = require('../../models/vehicle');
+const seedVehicles = require('../../config/seed');
 
-db.sync({ force: true })
-  .then(() => {
-    console.log(`Database & tables created!`);
-
-    Vehicle.bulkCreate([
-      { make: '1st', model: 'also 1st' },
-      { make: '2nt', model: 'also 2st' }
-    ]).then(function() {
-      return Vehicle.findAll();
-    }).then(function(vehicles) {
-      console.log(vehicles);
-    });
-  });
-
+db.sync({ force: true }).then(() => seedVehicles());
 
 router.get('/', (req, res) => {
-  res.json({test: 'hello'})
+  Vehicle.findAll().then(vehicles => res.json(vehicles));
 });
 
 module.exports = router;
